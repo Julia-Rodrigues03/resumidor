@@ -6,10 +6,9 @@ error_reporting(E_ALL);
 // 1. Carrega o "autoload" do Composer para termos acesso à biblioteca.
 // O caminho precisa subir um nível de pasta (de 'principal' para a raiz do projeto)
 
-//require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/vendor/autoload.php';
+
 // 2. Cria uma instância da biblioteca e aponta para a pasta RAIZ do projeto.
-// A pasta raiz é um nível acima ('../') da pasta 'principal' onde este script está.
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
@@ -28,10 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 // Define o cabeçalho da resposta como JSON
 header('Content-Type: application/json');
 
-// --- CONFIGURAÇÃO DAS CHAVES DE API ---
-// SUBSTITUA PELAS SUAS CHAVES REAIS!
-$GROQ_API_KEY = $_ENV['GROQ_API_KEY'];      // COLE SUA CHAVE DA GROQ AQUI
-$GEMINI_API_KEY = $_ENV['GEMINI_API_KEY']; // COLE SUA CHAVE DO GOOGLE AI STUDIO (GEMINI) AQUI
+$GROQ_API_KEY = $_ENV['GROQ_API_KEY'];      // chave groq
+$GEMINI_API_KEY = $_ENV['GEMINI_API_KEY']; // chave gemini 
 
 
 /**
@@ -173,6 +170,37 @@ $respostaGroq = resumirComGroq($textoParaResumir, $GROQ_API_KEY);
 if (isset($respostaGroq['choices'][0]['message']['content'])) {
     $resumoFinal = $respostaGroq['choices'][0]['message']['content'];
     echo json_encode(['resumo' => $resumoFinal]);
+    
+    $dbHost = 'localhost';
+    $dbUser = 'root';
+    $dbPass = '';
+    $dbName = 'resumidor_db';
+
+    // 2. Conexão com PDO dentro de um bloco try...catch
+    try {
+        $dsn = "mysql:host=$dbHost;dbname=$dbName";
+        $pdo = new PDO($dsn, $dbUser, $dbPass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // 3. Inserção SEGURA com Prepared Statements
+        // O SQL usa '?' como marcadores de posição para os dados
+        $sql = "INSERT INTO resumos (texto_original, resumo_gerado) VALUES (?, ?)";
+
+        // 4. Prepara a instrução
+        $stmt = $pdo->prepare($sql);
+
+        // 5. Executa a instrução, passando os dados reais num array.
+        // O PDO trata da segurança dos dados por você.
+        $stmt->execute([$textoParaResumir, $resumoFinal]);
+
+    } catch (PDOException $e) {
+        // Em um projeto real, guardaríamos o erro num log em vez de o mostrar.
+        // Ex: error_log("Erro na base de dados: " . $e->getMessage());
+    }
+
+    // Fecha a conexão
+    $pdo = null;
+
 } else {
     http_response_code(500);
     echo json_encode(['error' => 'Não foi possível gerar o resumo com a Groq.', 'details' => $respostaGroq['error']['message'] ?? 'Erro desconhecido da API da Groq.']);
