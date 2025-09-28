@@ -1,0 +1,89 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+:root {
+--cor--primaria: #176585;
+--cor--secundaria: #c2e4cb;
+--cor--terciaria: #27b1bf;  
+--cor--quaternaria: #f7f3cf;
+--cor--quintenaria: #36cecc;
+
+
+}
+
+
+body { 
+    align-items: center;
+    font-family: "Ubuntu", sans-serif; 
+    font-weight: 300; 
+    font-style: normal; 
+    max-width: 800px; 
+    margin: 40px auto; 
+    padding: 20px; 
+    line-height: 1.6; 
+    background-color: var(--cor--secundaria);
+}
+
+        h1 { 
+            text-align: center; 
+            color: #333; 
+        }
+
+        form {
+             background: var(--cor--quaternaria);
+            padding: 25px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        textarea, input[type="file"] { 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border: 1px solid var(--cor--terciaria); 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+        }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background-color: var(--cor--quintenaria); 
+            color: black; 
+            border: none;
+            border-radius: 4px; 
+            font-size: 16px; 
+            cursor: pointer; 
+        }
+        button:hover { 
+            background-color: var(--cor--primaria); 
+        }
+        #resultado { margin-top: 20px; 
+            background: var(--cor--quaternaria); 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 10px var(--cor--secundaria);
+            border-left: 5px solid var(--cor--secundaria); 
+            display: none; 
+        
+        }
+        #status { 
+            text-align: center; 
+            margin-top: 15px; 
+            font-weight: bold; 
+            display: none; 
+        }
+
+        .titulo {
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 800;
+            color: #176585;
+        }
+
+        .texto_introdutorio{
+            text-align: center;
+            font-weight: 500;
+}
+.negrito {
+    color: var(--cor--primaria);
+    font-weight: bold;
+    font-weight: 700;
+}

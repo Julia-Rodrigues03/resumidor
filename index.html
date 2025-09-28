@@ -3,29 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resumidor Inteligente</title>
-    <style>
-        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; background-color: #f4f4f9; }
-        h1 { text-align: center; color: #333; }
-        form { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        textarea, input[type="file"] { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        #resultado { margin-top: 20px; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border-left: 5px solid #007bff; display: none; }
-        #status { text-align: center; margin-top: 15px; font-weight: bold; display: none; }
-    </style>
+    <title> Quick Summary</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>Resumidor Inteligente</h1>
-    <p style="text-align: center;">Cole um texto ou envie uma imagem (foto de um documento, slide, pdf, etc.) para obter um resumo rápido.</p>
+    <h1 class="titulo"> Quick Summary </h1>
+    <p class="texto_introdutorio"> Cole um <strong class="negrito">texto</strong> ou envie uma <strong class="negrito">imagem</strong> para obter um resumo rápido.</p>
 
     <form id="formResumo" enctype="multipart/form-data">
         <label for="texto"><strong>Cole o texto aqui:</strong></label>
         <textarea name="texto" id="texto" rows="10" placeholder="Insira um longo texto para ser resumido..."></textarea>
         
-        <label for="imagem"><strong>Ou envie uma imagem:</strong></label>
-        <input type="file" name="imagem" id="imagem" accept="image/jpeg, image/png">
+        <label for="imagem"><strong class="negrito">Ou envie uma imagem:</strong></label>
+        <input type="file" name="imagem" id="imagem" accept="image/jpeg, image/png, image/gif" placeholder="Envie uma imagem (JPEG ou PNG)">
         
         <button type="submit">Gerar Resumo</button>
     </form>
