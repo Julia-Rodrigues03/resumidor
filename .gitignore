@@ -1,0 +1,5 @@
+# Ignorar arquivos de ambiente com segredos
+.env
+
+# Ignorar pasta de dependências do Composer
+/vendor/
